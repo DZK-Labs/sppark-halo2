@@ -5,35 +5,8 @@
 use std::env;
 use std::path::PathBuf;
 
-fn feature_check() {
-    let curves = ["bn254", "bls12_377", "bls12_381"];
-    let curves_as_features: Vec<String> = (0..curves.len())
-        .map(|i| format!("CARGO_FEATURE_{}", curves[i].to_uppercase()))
-        .collect();
-
-    let mut curve_counter = 0;
-    for curve_feature in curves_as_features.iter() {
-        curve_counter += env::var(&curve_feature).is_ok() as i32;
-    }
-
-    match curve_counter {
-        0 => panic!("Can't run without a curve being specified, please select one with --features=<curve>. Available options are\n{:#?}\n", curves),
-        2.. => panic!("Multiple curves are not supported, please select only one."),
-        _ => (),
-    };
-}
-
 fn main() {
-    feature_check();
-
-    let mut curve = "";
-    if cfg!(feature = "bn254") {
-        curve = "FEATURE_BN254";
-    } else if cfg!(feature = "bls12_377") {
-        curve = "FEATURE_BLS12_377";
-    } else if cfg!(feature = "bls12_381") {
-        curve = "FEATURE_BLS12_381";
-    }
+    let curve = "FEATURE_BN254";
 
     // account for cross-compilation [by examining environment variable]
     let target_arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap();

@@ -2,28 +2,26 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
+use halo2curves::bn256::{Fr, G1Affine};
+use halo2curves::ff::Field;
 use rand::SeedableRng;
 use rand_chacha::ChaCha20Rng;
 
-use ark_ec::{AffineCurve, ProjectiveCurve};
-use ark_std::UniformRand;
-
-pub fn generate_points_scalars<G: AffineCurve>(
+pub fn generate_points_scalars(
     len: usize,
-) -> (Vec<G>, Vec<G::ScalarField>) {
+) -> (Vec<G1Affine>, Vec<Fr>) {
     let rand_gen: usize = 1 << 11;
     let mut rng = ChaCha20Rng::from_entropy();
 
-    let mut points =
-        <G::Projective as ProjectiveCurve>::batch_normalization_into_affine(
-            &(0..rand_gen)
-                .map(|_| G::Projective::rand(&mut rng))
-                .collect::<Vec<_>>(),
-        );
+    let mut points = (0..rand_gen)
+                .map(|_| G1Affine::random(&mut rng))
+                .collect::<Vec<_>>();
+
     // Sprinkle in some infinity points
-    points[3] = G::zero();
+    points[3] = G1Affine::default();
+
     let scalars = (0..len)
-        .map(|_| G::ScalarField::rand(&mut rng))
+        .map(|_| Fr::random(&mut rng))
         .collect::<Vec<_>>();
 
     while points.len() < len {
