@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use halo2curves::bn256::{Fr, G1Affine, G1};
+use blst::*;
 
 sppark::cuda_error!();
 
