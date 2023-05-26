@@ -3,8 +3,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use std::str::FromStr;
-use halo2curves::bn256::{Fr, G1Affine, G1};
-
 use sppark_msm::*;
 
 #[test]
@@ -15,6 +13,5 @@ fn msm_correctness() {
     let (points, scalars) =
         util::generate_points_scalars(1usize << npoints_npow);
 
-    let _ = multi_scalar_mult_halo2(points.as_slice(), scalars.as_slice())
-    .into_affine();
+    let _ = multi_scalar_mult_halo2(points.as_slice(), scalars.as_slice());
 }

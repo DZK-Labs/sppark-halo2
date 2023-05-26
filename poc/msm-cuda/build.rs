@@ -58,7 +58,7 @@ fn main() {
     if let Some(include) = env::var_os("DEP_BLST_C_SRC") {
         cc.include(include);
     }
-    cc.files(&files).compile("blst_msm");
+    cc.files(&files).compile("sppark_msm");
 
     if cfg!(target_os = "windows") && !cfg!(target_env = "msvc") {
         return;

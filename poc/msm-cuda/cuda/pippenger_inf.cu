@@ -3,17 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <cuda.h>
-
-#if defined(FEATURE_BLS12_381)
-# include <ff/bls12-381.hpp>
-#elif defined(FEATURE_BLS12_377)
-# include <ff/bls12-377.hpp>
-#elif defined(FEATURE_BN254)
-# include <ff/alt_bn128.hpp>
-#else
-# error "no FEATURE"
-#endif
-
+#include <ff/alt_bn128.hpp>
 #include <ec/jacobian_t.hpp>
 #include <ec/xyzz_t.hpp>
 

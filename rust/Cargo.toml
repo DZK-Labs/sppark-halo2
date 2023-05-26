@@ -9,14 +9,15 @@ keywords = ["crypto", "zero-knowledge", "cuda"]
 license = "Apache-2.0"
 links = "sppark"
 include = [
-    "/Cargo.toml",
-    "/build.rs",
-    "/src/**",
-    "/sppark/ec/**",
-    "/sppark/ff/**",
-    "/sppark/msm/**",
-    "/sppark/util/**",
+    "Cargo.toml",
+    "build.rs",
+    "src/**",
+    "../ec/**",
+    "../ff/**",
+    "../msm/**",
+    "../util/**",
 ]
+build = "build.rs"
 
 [dependencies]
 
